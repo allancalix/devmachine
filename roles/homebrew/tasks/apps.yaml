@@ -1,0 +1,78 @@
+- name: Update coreutils
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - coreutils
+    - fd
+    - ripgrep
+    - xsv
+    - bash # A more recent bash version than most systems provide
+    - openssh
+    - wget
+    - ssh-copy-id
+    - fish
+    - exa
+
+- name: Install Git
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - git
+    - git-delta
+    - git-absorb
+    - gh
+
+- name: Install linters
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - pgformatter
+    - tflint
+    - ansible-lint
+    - shellcheck
+
+- name: Install IDE apps
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - tmux
+    - tmuxinator
+    - fzf
+
+- name: Install services
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - kubectl
+    - vault
+    - terraform
+    - fnm
+    - go
+
+- name: Install MacOS binaries
+  homebrew:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop:
+    # Required to use keychain to store GPG key credentials.
+    - name: pinentry-mac
+      state: latest
+    # Formula doesn't work on linuxbrew.
+    - name: postgresql
+      state: latest
+    # Track HEAD for the latest features.
+    - name: neovim
+      state: head
+  when: ansible_facts['os_family'] == "Darwin"
+
+# TODO(allancalix): This cask doesn't seem to work for linuxbrew, disabling for now.
+- name: Install Alacritty
+  homebrew_cask:
+    name: alacritty
+    state: latest
+  when: ansible_facts['os_family'] == "Darwin"

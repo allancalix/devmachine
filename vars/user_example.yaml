@@ -1,0 +1,4 @@
+# Email belonging to the user being initialized on the system.
+user_email: "mygreatemail@example.com"
+# Path to a dotfiles directory.
+dotfiles_path: /home/superuser/sources/dotfiles
