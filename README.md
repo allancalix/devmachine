@@ -35,3 +35,19 @@ ansible-playbook devmachine.yaml
 # Bootstrap a new machine, probably only need to run once.
 ansible-playbook --tags=all,init --ask-become-password devmachine.yaml
 ```
+
+## Customization
+
+You can provide a `POST-INSTALL.sh` script in the root directory of this repo in
+order to do some additional configuration that will run each time the dotfiles
+sync.
+
+For example, you could use it to update personal git information.
+
+```bash
+#!/usr/bin/env bash
+
+git config --global user.name "John Doe"
+git config --global user.email "johndoe@example.com"
+git config --global user.signingkey "XXXXXXXXXXXXXX"
+```
