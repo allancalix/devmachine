@@ -12,7 +12,7 @@ jobs:
         run: |
           cat <<EOF >>vars/user.yaml
           user_email: "test@example.com"
-          dotfiles_path: "{{ third_party_src }}"/github.com/allancalix/dotfiles/"
+          dotfiles_path: "{{ third_party_src }}/github.com/allancalix/dotfiles/"
           EOF
           sudo apt-get install unzip ansible # Installs requirements
           ansible-galaxy collection install -r requirements.yaml
