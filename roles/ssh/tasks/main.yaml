@@ -1,3 +1,9 @@
+- name: Ensures GPG config directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    mode: "0777"
+    state: directory
+
 - name: Generate an OpenSSH keypair
   community.crypto.openssh_keypair:
     path: "{{ ansible_env.HOME }}/.ssh/acx_rsa"
