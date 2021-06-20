@@ -3,6 +3,8 @@
     state: directory
     suffix: artifacts
   register: temp
+  tags:
+    - dotfiles-only
 
 - name: Downloads rescript lsp bundle
   get_url:
@@ -15,6 +17,22 @@
     src: "{{ temp.path }}/rescript-vscode.vsix"
     dest: "{{ third_party_pkg }}/rescript-vscode"
 
+- name: Check if an exclusion list is provided by dotfiles
+  stat:
+    path: "{{ dotfiles_path }}exclude.txt"
+  register: dotfiles_exclusion_list
+  tags:
+    - dotfiles-only
+
+- name: Creating a file with content
+  copy:
+    dest: "{{ temp.path }}/exclude.txt"
+    content: "{{ exclude | join('\n') }}"
+  register: exclusion_list
+  when: not dotfiles_exclusion_list.stat.exists
+  tags:
+    - dotfiles-only
+
 - name: Sync dotfiles
   synchronize:
     delete: false
@@ -24,9 +42,17 @@
     recursive: true
     rsync_opts:
       - "-v"
+      - "--exclude-from={{ dotfiles_exclusion_list.stat.exists | ternary(dotfiles_exclusion_list.stat.path, exclusion_list.dest) }}"
   tags:
     - dotfiles-only
   notify: Run post install script
+
+- meta: flush_handlers
+
+- name: Delete temp directory
+  file:
+    state: absent
+    path: "{{ temp.path }}"
 
 - name: Create neovim autoload directory
   file:
