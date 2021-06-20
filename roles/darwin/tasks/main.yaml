@@ -4,9 +4,3 @@
   tags:
     - never
     - init
-
-- name: Copy VS Code options
-  synchronize:
-    delete: false
-    src: "{{ ansible_env.DOTFILES_REPO }}/vscode/"
-    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/"
