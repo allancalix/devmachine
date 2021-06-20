@@ -10,9 +10,11 @@
     name: "Host - {{ ansible_facts['hostname'] }}, OS -  {{ ansible_facts['os_family'] }}"
     token: "{{ ansible_env.GH_TOKEN }}"
     pubkey: '{{ ssh_key.public_key }}'
+  when: link_to_github
 
 - name: Copies SSH configuration
   template: src="config" dest="{{ ansible_env.HOME }}/.ssh/config"
+  when: link_to_github
 
 - name: Restart sshd
   community.general.launchd:

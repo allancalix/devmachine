@@ -2,3 +2,5 @@
 user_email: "mygreatemail@example.com"
 # Path to a dotfiles directory.
 dotfiles_path: /home/superuser/sources/dotfiles
+# Link generated ssh keys to GitHub account.
+link_to_github: true
