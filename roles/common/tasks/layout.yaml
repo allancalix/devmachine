@@ -54,12 +54,5 @@
   git:
     repo: "git@github.com:{{ item.repo }}.git"
     dest: "{{ third_party_src }}/github.com/{{ item.repo }}"
-    version: "{{ item.branch }}"
     accept_hostkey: true
-  loop:
-    - repo: acx-dev/acx
-      branch: master
-    - repo: acx-dev/kratos-ui
-      branch: main
-    - repo: allancalix/dotfiles
-      branch: main
+  loop: "{{ repos }}"

@@ -4,3 +4,7 @@ user_email: "mygreatemail@example.com"
 dotfiles_path: /home/superuser/sources/dotfiles
 # Link generated ssh keys to GitHub account.
 link_to_github: true
+# Repos to clone into common locations.
+repos:
+  - repo: allancalix/dotfiles
+    branch: main
