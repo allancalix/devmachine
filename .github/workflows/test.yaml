@@ -10,7 +10,11 @@ jobs:
         env:
           XDG_CONFIG_HOME: $HOME/.config
         run: |
-          cp tests/users.yaml vars/users.yaml
+          cat <<EOF >>vars/user.yaml
+          user_email: "test@example.com"
+          dotfiles_path: "{{ third_party_src }}/github.com/allancalix/dotfiles/"
+          EOF
+          # cp tests/users.yaml vars/users.yaml
           sudo apt-get install unzip ansible # Installs requirements
           ansible-galaxy collection install -r requirements.yaml
           ansible-playbook --tags=all,init devmachine.yaml
