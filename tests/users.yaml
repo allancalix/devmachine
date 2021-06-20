@@ -1,0 +1,2 @@
+user_email: "test@example.com"
+dotfiles_path: "{{ third_party_src }}/github.com/allancalix/dotfiles/"

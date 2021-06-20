@@ -42,7 +42,7 @@
 - name: Create XDG paths for user
   file:
     path: " {{ item }}"
-    mode: "u=rw-,g=---,o=---"
+    mode: "0777"
     state: directory
   loop:
     - "{{ ansible_env.HOME }}/.config" # $XDG_DATA_HOME
