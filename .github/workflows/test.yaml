@@ -1,0 +1,15 @@
+name: Test
+on:
+  push: {}
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check full install playbook completes successfully
+        env:
+          XDG_CONFIG_HOME: $HOME/.config
+        run: |
+          sudo apt-get install unzip ansible # Installs requirements
+          ansible-galaxy collection install -r requirements.yaml
+          ansible-playbook --tags=all,init --ask-become-password devmachine.yaml
