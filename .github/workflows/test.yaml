@@ -13,4 +13,5 @@ jobs:
           cp tests/user.yaml vars/user.yaml
           sudo apt-get install unzip ansible # Installs requirements
           ansible-galaxy collection install -r requirements.yaml
-          ansible-playbook --tags=all,init devmachine.yaml
+          # Do dotfiles sync only for now.
+          ansible-playbook --tags=dotfiles-only devmachine.yaml
