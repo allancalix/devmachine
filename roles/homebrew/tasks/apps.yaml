@@ -31,6 +31,7 @@
   loop:
     - pgformatter
     - tflint
+    - gcc
     - ansible-lint
     - shellcheck
 

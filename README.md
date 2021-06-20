@@ -16,6 +16,22 @@ to scan and steal the bits you need.__
 * Installing binaries, pulling source code repos, and placing configuration files
 * Install VS Code and VS Code extensions
 
+## Bootstrapping
+
+### Ubuntu 20+
+
+```bash
+sudo apt-get install unzip ansible # Installs requirements
+ansible-galaxy collection install -r requirements.yaml
+
+# Set GH_TOKEN environment variable from secret.
+# export GH_TOKEN=XXXXXXXX
+export XDG_CONFIG_HOME=$HOME/.config
+
+# Bootstrap a new machine, probably only need to run once.
+ansible-playbook --tags=all,init --ask-become-password devmachine.yaml
+```
+
 ## Usage
 
 The GitHub module requires an authentication token from GitHub with permissions
@@ -26,14 +42,14 @@ Before running, you must create a [user.yaml](vars/user_example.yaml) file in th
 `vars/` directory to provide additional values.
 
 ```bash
+# Install collection dependencies.
+ansible-galaxy collection install -r requirements.yaml
+
 # Only updates dotfiles.
 ansible-playbook --tags=dotfiles-only devmachine.yaml
 
 # Updates packages, repos, and binaries installed through these tasks.
 ansible-playbook devmachine.yaml
-
-# Bootstrap a new machine, probably only need to run once.
-ansible-playbook --tags=all,init --ask-become-password devmachine.yaml
 ```
 
 ## Customization
@@ -51,3 +67,5 @@ git config --global user.name "John Doe"
 git config --global user.email "johndoe@example.com"
 git config --global user.signingkey "XXXXXXXXXXXXXX"
 ```
+
+## Notes

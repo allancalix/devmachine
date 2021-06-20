@@ -1,37 +1,65 @@
-# Layout common directories.
+# Layout commonly used directories.
 - name: Create static directory for readonly source code
+  become: true
   file:
     path: "{{ readonly_src }}"
     state: directory
     mode: "0777"
+
 - name: Create static directory for readonly code artifacts
+  become: true
   file:
     path: "{{ third_party_pkg }}"
     mode: "0777"
     state: directory
+
 - name: Create directory for rescript lsp
   file:
     path: "{{ third_party_pkg }}/rescript-vscode"
     mode: "0777"
     state: directory
+
 - name: Create directory for user binaries
   file:
     path: "{{ ansible_env.HOME }}/bin"
     mode: "u=rwx,g=---,o=---"
     state: directory
+
 - name: Create directory for user source code
   file:
     path: "{{ ansible_env.HOME }}/acx/sources"
     mode: "u=rwx,g=---,o=---"
     state: directory
+
+- name: Create directory for rescript lsp
+  file:
+    path: "{{ third_party_pkg }}/rescript-vscode"
+    mode: "0777"
+    state: directory
+
+# Paths created from the following reference:
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html#referencing
+- name: Create XDG paths for user
+  file:
+    path: " {{ item }}"
+    mode: "u=rw-,g=---,o=---"
+    state: directory
+  loop:
+    - "{{ ansible_env.HOME }}/.config" # $XDG_DATA_HOME
+    - "{{ ansible_env.HOME }}/.local/share" # $XDG_CONFIG_HOME
+    - "{{ ansible_env.HOME }}/.local/state" # $XDG_STATE_HOME
+    - "{{ ansible_env.HOME }}/.cache" # $XDG_CACHE_HOME
+
 - name: Clones active working directories
   git:
-    repo: "git@github.com:{{ item }}.git"
-    dest: "{{ third_party_src }}/github.com/{{ item }}"
-    single_branch: yes
-    # TODO(allancalix): Standardize upstream branch path to "main."
-    version: master
+    repo: "git@github.com:{{ item.repo }}.git"
+    dest: "{{ third_party_src }}/github.com/{{ item.repo }}"
+    version: "{{ item.branch }}"
+    accept_hostkey: true
   loop:
-     - acx-dev/acx
-     - acx-dev/kratos-ui
-     - allancalix/dotfiles
+    - repo: acx-dev/acx
+      branch: master
+    - repo: acx-dev/kratos-ui
+      branch: main
+    - repo: allancalix/dotfiles
+      branch: main

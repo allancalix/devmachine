@@ -5,12 +5,14 @@
     # Must be created before executing.
     - vars/user.yaml
   roles:
+    # Must happen first to pull private repositories later.
+    - ssh
     - common
-    - homebrew
+    - role: homebrew
+      when: ansible_facts['os_family'] == "Darwin"
     - rust
     - gnupg
     - dotfiles
     - role: darwin
       when: ansible_facts['os_family'] == "Darwin"
-    - ssh
     - vscode

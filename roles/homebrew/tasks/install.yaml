@@ -9,14 +9,15 @@
 
 - name: Download Homebrew installation script
   get_url:
-    url: https://raw.githubusercontent.com/Homebrew/install/master/install
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
     dest: "{{ temp.path }}/install"
+    mode: 0777
   tags:
     - init
     - never
 
 - name: Install Homebrew
-  shell: /usr/bin/ruby "{{ temp.path }}/install" < /dev/null
+  shell: "/usr/bin/bash -c {{ temp.path }}/install < /dev/null"
   tags:
     - init
     - never
