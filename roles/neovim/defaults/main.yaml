@@ -1,0 +1,2 @@
+# Update an existing neovim binary in the destination location.
+neovim_update: false
