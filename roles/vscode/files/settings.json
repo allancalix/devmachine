@@ -1,0 +1,26 @@
+{
+    // General editor settings
+    "window.zoomLevel": 0,
+    "workbench.startupEditor": "none",
+    "workbench.fontAliasing": "antialiased",
+    "workbench.sideBar.location": "right",
+    "workbench.editor.showTabs": false,
+    "workbench.settings.editor": "json",
+    "editor.fontFamily": "Inconsolata-g, Fira Code Retina, DejaVu Sans Mono, Source Code Pro",
+    "editor.fontSize": 12,
+    "editor.fontLigatures": false,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.minimap.enabled": false,
+    "editor.rulers": [
+        80,
+    ],
+    "editor.scrollBeyondLastLine": false,
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/target": true,
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+}

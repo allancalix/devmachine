@@ -1,0 +1,3 @@
+extensions:
+  - asvetliakov.vscode-neovim # Delegates text editing operations to Neovim.
+  - EditorConfig.EditorConfig # Applies editorconfig preferences to files.
