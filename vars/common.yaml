@@ -1,5 +1,5 @@
 # Directory for user specific binaries.
-user_bin: "{{ ansible_env.HOME }}/bin"
+user_bin: "{{ ansible_env.HOME }}/.local/bin"
 # Directory for read only source code that tracks HEAD.
 readonly_src: /usr/local/share/acx/sources/acx
 # Directory for read only third party source code.
