@@ -1,0 +1,4 @@
+- name: Boostrap Nix
+  hosts: localhost
+  roles:
+    - nix

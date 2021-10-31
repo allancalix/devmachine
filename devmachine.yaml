@@ -10,8 +10,6 @@
     - common
     - role: homebrew
       when: ansible_facts['os_family'] == "Darwin"
-    - role: neovim
-      when: ansible_facts['os_family'] == "Debian"
     - rust
     - gnupg
     - dotfiles
