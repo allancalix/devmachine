@@ -1,24 +1,11 @@
-- name: Install VS Code
-  homebrew_cask:
-    name: visual-studio-code
-    state: latest
-  notify: Install vscode-plugins
-  when: ansible_facts['os_family'] == "Darwin"
-
 - name: Copy default VS Code settings
   synchronize:
     delete: false
-    # From the files directory.
     src: "."
-    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/"
-  when: ansible_facts['os_family'] == "Darwin"
-
-# TODO(allancalix): Common Linux package managers install for all users and
-# require privilege escalation to install packages. Find a way to make linuxbrew
-# work or a non-privileged way to install VS Code on Linux.
+    # Jumping through some hoops here to make the space in the path behave on OSX.
+    dest: '{{ ansible_env.HOME + "/Library/Application" + "\ " + "Support/Code/User/" }}'
 
 - name: Installs VS Code extensions
   command: code --install-extension {{ item }}
   with_items: '{{ extensions }}'
   ignore_errors: yes
-  when: ansible_facts['os_family'] == "Darwin"

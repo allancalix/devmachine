@@ -1,0 +1,4 @@
+- name: Update VSCode configuration
+  hosts: localhost
+  roles:
+    - vscode
